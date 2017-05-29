@@ -1,4 +1,9 @@
 
+.userInput {
+margin-bottom: 10px;
+background-color: green;
+height: 80px;
+}
 
 .topics-view {
   height: 100px;
