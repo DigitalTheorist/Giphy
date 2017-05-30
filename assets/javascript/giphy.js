@@ -1,26 +1,20 @@
 //PSEUDOCODE
-//When the user clicks on a button, the page should grab 10 TODO:static, non-animated gif images from the GIPHY API and place them on the page.
 
 //TODO When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
 
 //TODO Under every gif, display its rating (PG, G, so on).
 
-// Only once you get images displaying with button presses should you move on to the next step.
-
-// Add a form to your page that takes the value from a user input box and adds it into your topics array. Then make a function call that takes each topic in the array AND remakes the buttons on the page.
-    //TODO use .val() to get value of form input.
-
-
-// Rejoice! You just made something really cool.
-
 $(document).ready(function() {
 
-// giphy public bete key: dc6zaTOxFJmzC
-
 //GLOBAL VARIABLES
-var topics = ["star trek", "books", "insects", "disney"]
+var topics = ["star trek", "books", "simpsons", "disney"]
 var index = 0
+var animateSwitch = true;
+var stillGif = "downsized_still"
+var animateGif = "downsized"
+var animateOrStill = "downsized_still"
 
+//ajax function calls 10 gifs from API, creates img inputs and appends necessary attributes
 function callGifs (){
 
 var gifName = $(this).attr("data-name");
@@ -29,18 +23,24 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?q= " + gifName + "&api_key=
 $.ajax({
   url: queryURL,
   method: "GET"
-}).done(function(response) { //calls 10 gifs from API
+}).done(function(response) {
+    console.log(response);
 
-  for (index = 0; index < 11; index++){
+  for (index = 0; index < 10; index++){
+
     // console.log(index);
-    // console.log(response.data[index].images.downsized.url);
-    var gifEmbed = response.data[index].images.downsized.url;
+    // console.log(response.data[index].images.downsized_still.url);
+
+    var gifEmbed = response.data[index].images.downsized_still.url;
     var rating = response.data[index].rating;
-    var img = $("<img>");
-    img.addClass("gifSrc");
-    img.attr("src", gifEmbed);
-    img.attr("alt", "gif goes here");
-    $(".gifContainer").prepend(img, rating);
+    var gifInput = $("<input>");
+
+    gifInput.addClass("gifSrc");
+    gifInput.attr("id", index);
+    gifInput.attr("type", "image");
+    gifInput.attr("src", gifEmbed);
+    gifInput.attr("alt", "gif goes here");
+    $(".gifContainer").prepend(gifInput, rating);
 
     // console.log(img)
     // console.log(queryURL);
@@ -48,6 +48,23 @@ $.ajax({
     }
   });
 };
+
+function animateStill (){
+
+var gifId = $(this).attr('id');
+  console.log(gifId);
+
+  if (animateSwitch === true){
+    animateOrStill = stillGif
+    animateSwitch = false
+  } else {
+    animateOrStill = animateGif
+    animateSwitch = true
+  }
+  console.log(animateOrStill);
+  console.log(animateSwitch);
+};
+
 
   function renderButtons() {
 
@@ -71,19 +88,23 @@ $.ajax({
     }
   }
 
+  // This function handles events where the add add-gif button is clicked
+  $("#add-gif").on("click", function(event) {
+    event.preventDefault();
+    // This line of code will grab the input from the textbox
+    var gifChoice = $("#gif-input").val().trim();
+    // The add-gif from the textbox is then added to our array
+    topics.push(gifChoice);
+    // Calling renderButtons which handles the processing of our add-gif array
+    renderButtons();
+  });
+
+
 
 $(document).on("click", ".topicButton", callGifs);
+$(document).on("click", ".gifSrc", animateStill);
+
 
 renderButtons();
 
 });//document ready endtag
-
-// $(".gifSrc").click( //animated or static gif
-//        function()
-//        {
-//            $(this).attr("src", gifEmbed);
-//        },
-//        function()
-//        {
-//            $(this).attr("src", "STATIC IMAGE URL HERE");
-//        });

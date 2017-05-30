@@ -1,5 +1,5 @@
 
-.userInput {
+#gif-form {
 margin-bottom: 10px;
 background-color: green;
 height: 80px;
@@ -7,6 +7,7 @@ height: 80px;
 
 .topics-view {
   height: 100px;
+  width: auto;
   background-color: orange;
 }
 
@@ -22,4 +23,10 @@ height: 80px;
   height: auto;
   margin: 20px;
   font-size: 30;
+}
+
+.gifSrc {
+  height: 150px;
+  width: 150px;
+  display: inline-block;
 }
