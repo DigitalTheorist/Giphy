@@ -7,12 +7,8 @@
 $(document).ready(function() {
 
 //GLOBAL VARIABLES
-var topics = ["star trek", "books", "simpsons", "disney"]
+var topics = ["star trek", "books", "simpsons", "weird al"]
 var index = 0
-var animateSwitch = true;
-var stillGif = "downsized_still"
-var animateGif = "downsized"
-var animateOrStill = "downsized_still"
 
 //ajax function calls 10 gifs from API, creates img inputs and appends necessary attributes
 function callGifs (){
@@ -26,44 +22,46 @@ $.ajax({
 }).done(function(response) {
     console.log(response);
 
+    //TODO function for switching still-animate.
+    function animateSwitch (){
+
+      var $thisStill = $(this).attr("data-still");
+      var $thisAnimated = $(this).attr("data-animated");
+      var $thisSrc = $(this).attr("src");
+      console.log($thisSrc);
+
+      if ($thisSrc === $thisStill) {
+        $thisSrc = $(this).attr("src", $thisAnimated)
+
+    } else if ($thisSrc === $thisAnimated) {
+        $thisSrc = $(this).attr("src", $thisStill);
+    }
+  }
+
+    $(document).on("click", ".gifSrc", animateSwitch);
+
+  // for loop calls gifs, creates elements, attributes data and prepends.
   for (index = 0; index < 10; index++){
 
-    // console.log(index);
-    // console.log(response.data[index].images.downsized_still.url);
-
-    var gifEmbed = response.data[index].images.downsized_still.url;
+    var gifStill = response.data[index].images.downsized_still.url;
+    var gifAnimate = response.data[index].images.downsized.url;
     var rating = response.data[index].rating;
     var gifInput = $("<input>");
 
     gifInput.addClass("gifSrc");
+    gifInput.attr("value", true);
     gifInput.attr("id", index);
     gifInput.attr("type", "image");
-    gifInput.attr("src", gifEmbed);
+    gifInput.attr("data-still", gifStill); // write a function to swap "data-still" w/ "data-animated onclick"
+    gifInput.attr("data-animated", gifAnimate);
+    gifInput.attr("src", gifStill);
     gifInput.attr("alt", "gif goes here");
     $(".gifContainer").prepend(gifInput, rating);
-
-    // console.log(img)
-    // console.log(queryURL);
-    // console.log(response);
     }
   });
 };
 
-function animateStill (){
 
-var gifId = $(this).attr('id');
-  console.log(gifId);
-
-  if (animateSwitch === true){
-    animateOrStill = stillGif
-    animateSwitch = false
-  } else {
-    animateOrStill = animateGif
-    animateSwitch = true
-  }
-  console.log(animateOrStill);
-  console.log(animateSwitch);
-};
 
 
   function renderButtons() {
@@ -99,11 +97,7 @@ var gifId = $(this).attr('id');
     renderButtons();
   });
 
-
-
 $(document).on("click", ".topicButton", callGifs);
-$(document).on("click", ".gifSrc", animateStill);
-
 
 renderButtons();
 
