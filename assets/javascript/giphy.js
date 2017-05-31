@@ -1,16 +1,10 @@
-//PSEUDOCODE
-
-//TODO When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
-
-//TODO Under every gif, display its rating (PG, G, so on).
-
 $(document).ready(function() {
 
 //GLOBAL VARIABLES
 var topics = ["star trek", "books", "simpsons", "weird al"]
 var index = 0
 
-//ajax function calls 10 gifs from API, creates img inputs and appends necessary attributes
+//Ajax function calls 10 gifs from API, creates img inputs and appends necessary attributes
 function callGifs (){
 
 var gifName = $(this).attr("data-name");
@@ -22,66 +16,54 @@ $.ajax({
 }).done(function(response) {
     console.log(response);
 
-    //TODO function for switching still-animate.
-    function animateSwitch (){
-
-      var $thisStill = $(this).attr("data-still");
-      var $thisAnimated = $(this).attr("data-animated");
-      var $thisSrc = $(this).attr("src");
-      console.log($thisSrc);
-
-      if ($thisSrc === $thisStill) {
-        $thisSrc = $(this).attr("src", $thisAnimated)
-
-    } else if ($thisSrc === $thisAnimated) {
-        $thisSrc = $(this).attr("src", $thisStill);
-    }
-  }
-
-    $(document).on("click", ".gifSrc", animateSwitch);
-
-  // for loop calls gifs, creates elements, attributes data and prepends.
+  // for loop calls gifs, creates elements, attributes data and prepends to DOM.
   for (index = 0; index < 10; index++){
 
-    var gifStill = response.data[index].images.downsized_still.url;
-    var gifAnimate = response.data[index].images.downsized.url;
-    var rating = response.data[index].rating;
-    var gifInput = $("<input>");
+    var gifStill = response.data[index].images.downsized_still.url; //calls still gif image
+    var gifAnimate = response.data[index].images.downsized.url; //calls moving gif image
+    var rating = response.data[index].rating; //calls gif rating
+    var gifInput = $("<input>");  //Creates input element for each gif
 
-    gifInput.addClass("gifSrc");
-    gifInput.attr("value", true);
-    gifInput.attr("id", index);
-    gifInput.attr("type", "image");
-    gifInput.attr("data-still", gifStill); // write a function to swap "data-still" w/ "data-animated onclick"
-    gifInput.attr("data-animated", gifAnimate);
-    gifInput.attr("src", gifStill);
-    gifInput.attr("alt", "gif goes here");
-    $(".gifContainer").prepend(gifInput, rating);
+    gifInput.addClass("gifSrc");  //Creates gif class
+    gifInput.attr("type", "image"); //applies type to input element
+    gifInput.attr("data-still", gifStill);  //stores still gif in data element
+    gifInput.attr("data-animated", gifAnimate); //stores moving gif in data element
+    gifInput.attr("src", gifStill); //Attributes the still gif (initially) to the input src
+    gifInput.attr("alt", "gif goes here");  //Attributes "gif goes here to the alt tag"
+    $(".gifContainer").prepend(gifInput, rating); //prepends gifs to thd DOM element TODO style rating (add <p> element?)
     }
   });
 };
 
+$(document).on("click", ".gifSrc", animateSwitch);
 
+//Still/Animated function
+  function animateSwitch (){
+
+    var $thisStill = $(this).attr("data-still");
+    var $thisAnimated = $(this).attr("data-animated");
+    var $thisSrc = $(this).attr("src");
+
+    if ($thisSrc === $thisStill) {
+    $thisSrc = $(this).attr("src", $thisAnimated)
+
+} else if ($thisSrc === $thisAnimated) {
+    $thisSrc = $(this).attr("src", $thisStill);
+}
+}
 
 
   function renderButtons() {
 
-    // Deleting the topics prior to adding new movies
-    // (this is necessary otherwise we will have repeat buttons)
     $(".topics-view").empty();
 
-    // Looping through the array of topics
     for (var i = 0; i < topics.length; i++) {
 
-      // dynamic buttons
       var a = $("<button>");
-      // Adding a class
+
       a.addClass("topicButton");
-      // Added a data-attribute
       a.attr("data-name", topics[i]);
-      // Provided the initial button text
       a.text(topics[i]);
-      // Added the button to the HTML
       $(".topics-view").append(a);
     }
   }
@@ -96,9 +78,8 @@ $.ajax({
     // Calling renderButtons which handles the processing of our add-gif array
     renderButtons();
   });
+renderButtons();
 
 $(document).on("click", ".topicButton", callGifs);
-
-renderButtons();
 
 });//document ready endtag
