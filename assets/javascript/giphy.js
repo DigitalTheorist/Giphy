@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 //GLOBAL VARIABLES
-var topics = ["star trek", "books", "simpsons", "weird al"]
+var topics = ["star trek", "books", "simpsons", "weird al", "space", "forests", "laughter", "blue", "Paris", "Garden", "banjo", "Cold Beer", "Yoga", "Dune", "Bootcamp"]
 var index = 0
 
 //Ajax function calls 10 gifs from API, creates img inputs and appends necessary attributes
@@ -10,13 +10,12 @@ function callGifs (){
 var gifName = $(this).attr("data-name");
 var queryURL = "https://api.giphy.com/v1/gifs/search?q= " + gifName + "&api_key=dc6zaTOxFJmzC"
 
-
-
 $.ajax({
   url: queryURL,
   method: "GET"
 }).done(function(response) {
-    console.log(response);
+
+  $(".gifContainer").empty(); //TODO - empty container before filling
 
   // for loop calls gifs, creates elements, attributes data and prepends to DOM.
   for (index = 0; index < 10; index++){
