@@ -1,4 +1,6 @@
-
+body {
+  background-color: url("../images/whitewall.png");
+}
 .nav{
   height: 80px;
   vertical-align: middle;
@@ -37,6 +39,7 @@
 }
 
 .topics-view {
+  background-color: #7c458e;
   height: auto;
   width: 95%;
   margin: 0 auto;
@@ -75,7 +78,7 @@
 .gifContainer {
   border-style: solid;
   border-radius: 15px;
-  background-image: url("../images/diamondblack.png");
+  background-image: url("../images/dark_mosaic.png");
   text-align: center;
   font-size: 30;
   height: auto;
@@ -85,25 +88,26 @@
 }
 
 .gifSrc {
-  background: rgba(243,226,199,1);
-  background: -moz-linear-gradient(left, rgba(243,226,199,1) 0%, rgba(193,158,103,1) 50%, rgba(182,141,76,1) 51%, rgba(233,212,179,1) 100%);
-  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(243,226,199,1)), color-stop(50%, rgba(193,158,103,1)), color-stop(51%, rgba(182,141,76,1)), color-stop(100%, rgba(233,212,179,1)));
-  background: -webkit-linear-gradient(left, rgba(243,226,199,1) 0%, rgba(193,158,103,1) 50%, rgba(182,141,76,1) 51%, rgba(233,212,179,1) 100%);
-  background: -o-linear-gradient(left, rgba(243,226,199,1) 0%, rgba(193,158,103,1) 50%, rgba(182,141,76,1) 51%, rgba(233,212,179,1) 100%);
-  background: -ms-linear-gradient(left, rgba(243,226,199,1) 0%, rgba(193,158,103,1) 50%, rgba(182,141,76,1) 51%, rgba(233,212,179,1) 100%);
-  background: linear-gradient(to right, rgba(243,226,199,1) 0%, rgba(193,158,103,1) 50%, rgba(182,141,76,1) 51%, rgba(233,212,179,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3e2c7', endColorstr='#e9d4b3', GradientType=1 );
+  border-style: inset;
+  border-color: #e2c036;
   border-radius: 5px;
-  height: 150px;
-  width: 150px;
+  height: 250px;
+  width: 250px;
   display: inline-flex;
   padding: 10px;
   margin: 25px
 }
 
 .gifRating {
-  width: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+  border-radius: 5px;
   height: 30px;
-  background-color: lightblue;
+  background-color: gold;
   display: inline;
+  position: relative;
+  left: 175px;
+  font-size: 10px;
+  font-family: 'Alegreya', serif;
 }

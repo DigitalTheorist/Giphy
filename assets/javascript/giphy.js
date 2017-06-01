@@ -26,8 +26,6 @@ $.ajax({
     var rating = response.data[index].rating; //calls gif rating
 
     var gifInput = $("<input>");  //Creates input element for each gif
-    var ratingInput = $("<h4>")
-
     gifInput.addClass("gifSrc");  //Creates gif class
     gifInput.attr("type", "image"); //applies type to input element
     gifInput.attr("data-still", gifStill);  //stores still gif in data element
@@ -35,6 +33,7 @@ $.ajax({
     gifInput.attr("src", gifStill); //Attributes the still gif (initially) to the input src
     gifInput.attr("alt", "gif goes here");  //Attributes "gif goes here to the alt tag"
 
+    var ratingInput = $("<p>")
     ratingInput.addClass("gifRating");  //Adds class to <h5> tag for rating.
     ratingInput.text(rating);
 
@@ -93,6 +92,7 @@ $(document).on("click", ".gifSrc", animateSwitch);
 
 $(document).on("click", ".topicButton", callGifs);
 
+// clears input field upon entering the input.
 $("#add-gif").on("click", function(){
   $("#gif-input").val(' ');
 });
