@@ -24,21 +24,20 @@
 <body>
 
 
-  <div class="buttonContainer container-fluid text-center">
+  <nav class="nav navbar-inverse">
+    <a class="navbar-brand navTitle">gifFetcher!<br><h5>by #digitalTheorist</h5></a>
+    <form class="form-inline" id="gif-form">
 
-    <form id="gif-form">
-      <label for="gif-input">Choose a gif topic!</label>
-      <input type="text" id="gif-input"><br>
-
-      <!-- Button triggers new gif to be added -->
       <input id="add-gif" type="submit" value="Add a Gif">
+      <input class="navInput" type="text" id="gif-input" >
+
     </form>
+  </nav>
 
-    <div class="row topics-view"></div></div>
 
-  <div class="gifContainer">
+    <div class="topics-view text-center"></div>
 
-</div>
+    <div class="gifContainer" style="margin-top: 20px; border-color: purple;"></div>
 
 
 

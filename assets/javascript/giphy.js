@@ -10,6 +10,8 @@ function callGifs (){
 var gifName = $(this).attr("data-name");
 var queryURL = "https://api.giphy.com/v1/gifs/search?q= " + gifName + "&api_key=dc6zaTOxFJmzC"
 
+
+
 $.ajax({
   url: queryURL,
   method: "GET"
@@ -22,7 +24,9 @@ $.ajax({
     var gifStill = response.data[index].images.downsized_still.url; //calls still gif image
     var gifAnimate = response.data[index].images.downsized.url; //calls moving gif image
     var rating = response.data[index].rating; //calls gif rating
+
     var gifInput = $("<input>");  //Creates input element for each gif
+    var ratingInput = $("<h4>")
 
     gifInput.addClass("gifSrc");  //Creates gif class
     gifInput.attr("type", "image"); //applies type to input element
@@ -30,7 +34,14 @@ $.ajax({
     gifInput.attr("data-animated", gifAnimate); //stores moving gif in data element
     gifInput.attr("src", gifStill); //Attributes the still gif (initially) to the input src
     gifInput.attr("alt", "gif goes here");  //Attributes "gif goes here to the alt tag"
-    $(".gifContainer").prepend(gifInput, rating); //prepends gifs to thd DOM element TODO style rating (add <p> element?)
+
+    ratingInput.addClass("gifRating");  //Adds class to <h5> tag for rating.
+    ratingInput.text(rating);
+
+    $(".gifContainer").prepend(gifInput);
+    $(".gifContainer").prepend(ratingInput);
+
+     //prepends gifs to thd DOM element TODO style rating (add <p> element?)
     }
   });
 };
@@ -47,12 +58,12 @@ $(document).on("click", ".gifSrc", animateSwitch);
     if ($thisSrc === $thisStill) {
     $thisSrc = $(this).attr("src", $thisAnimated)
 
-} else if ($thisSrc === $thisAnimated) {
+  } else if ($thisSrc === $thisAnimated) {
     $thisSrc = $(this).attr("src", $thisStill);
-}
+  }
 }
 
-
+//Render buttons function
   function renderButtons() {
 
     $(".topics-view").empty();
@@ -78,8 +89,13 @@ $(document).on("click", ".gifSrc", animateSwitch);
     // Calling renderButtons which handles the processing of our add-gif array
     renderButtons();
   });
-renderButtons();
+
 
 $(document).on("click", ".topicButton", callGifs);
 
+$("#add-gif").on("click", function(){
+  $("#gif-input").val(' ');
+});
+
+renderButtons();
 });//document ready endtag
