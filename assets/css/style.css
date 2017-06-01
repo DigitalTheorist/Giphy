@@ -87,6 +87,14 @@ body {
   padding: 20px;
 }
 
+.gifDiv {
+  height: 300px;
+  width: 300px;
+  background-color: lightblue;
+  display: inline-block;
+  margin: 10px;
+}
+
 .gifSrc {
   border-style: inset;
   border-color: #e2c036;
@@ -106,8 +114,8 @@ body {
   height: 30px;
   background-color: gold;
   display: inline;
-  position: relative;
-  left: 175px;
-  font-size: 12px;
+  /*position: relative;*/
+  /*left: 175px;*/
+  /*font-size: 12px;*/
   font-family: 'Alegreya', serif;
 }

@@ -7,6 +7,8 @@ var index = 0
 //Ajax function calls 10 gifs from API, creates img inputs and appends necessary attributes
 function callGifs (){
 
+$(".gifContainer").empty(); //empty container before filling
+
 var gifName = $(this).attr("data-name");
 var queryURL = "https://api.giphy.com/v1/gifs/search?q= " + gifName + "&api_key=dc6zaTOxFJmzC"
 
@@ -15,7 +17,6 @@ $.ajax({
   method: "GET"
 }).done(function(response) {
 
-  $(".gifContainer").empty(); //TODO - empty container before filling
 
   // for loop calls gifs, creates elements, attributes data and prepends to DOM.
   for (index = 0; index < 10; index++){
@@ -43,6 +44,7 @@ $.ajax({
     }
   });
 };
+
 
 $(document).on("click", ".gifSrc", animateSwitch);
 
